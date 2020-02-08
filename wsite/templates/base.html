@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/theme-color.css') }}">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+<!-- renkli kutu -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/prism.css') }}" />
+<script defer type="text/javascript" src="{{ url_for('static', filename='js/prism.js') }}"></script>
+<!-- renkli kutu son -->
+<style>
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "Open Sans", sans-serif;
+        color: #195b73;
+    }
+
+    .w3-card,
+    .w3-card-2,
+    .w3-card-4 {
+        box-shadow: none;
+        border: 1px solid #eeeeee;
+    }
+
+
+
+
+    .checked {
+        color: orange;
+
+    }
+
+
+    .bar-container {
+        width: 100%;
+        background-color: #f1f1f1;
+        text-align: center;
+        color: white;
+    }
+
+    .bar {
+        width: 10%;
+        height: 4px;
+        background-color: #ff9800;
+    }
+</style>
+
+
+<body class="w3-theme-l5">
+
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-theme-d2 w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
+                href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+
+            <a href="#">
+                <img src="../static/img/logo.png" class="w3-bar-item w3-button w3-padding-large w3-hover-theme"
+                    height="51px"></img>
+            </a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i
+                    class="fa fa-globe"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+                title="Account Settings"><i class="fa fa-user"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i
+                    class="fa fa-envelope"></i></a>
+            <div class="w3-dropdown-hover w3-hide-small ">
+                <button class="w3-button w3-padding-large w3-hover-white" title="Notifications"><i
+                        class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">7</span></button>
+                <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+                    <a href="#" class="w3-bar-item w3-button w3-hover-theme">One new friend request</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hover-theme">John Doe posted on your wall</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hover-theme">Jane likes your post</a>
+                </div>
+            </div>
+            <!-- icon -->
+            <!-- <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" title="My Account">
+    <img src="https://celikozkan.github.io/assets/img/ozkancelik.png" class="w3-circle" style="height:30px;width:30px" alt="Avatar">
+  </a> -->
+
+
+            <a href="{{ url_for('logout') }}"
+                class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-right"
+                title="Çıkış Yap"><i class="fa fa-sign-out"></i></a>
+
+        </div>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large">
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+    </div>
+
+    <!-- Page Container -->
+    <div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">
+        <!-- The Grid -->
+        <div class="w3-row">
+            <!-- Left Column -->
+            <div class="w3-col m3">
+                <!-- Profile -->
+                <div class="w3-card w3-round w3-white">
+                    <div class="w3-container">
+                        <p class="w3-center ">
+                            <a href="#">
+                                <img class="w3-circle" src="https://celikozkan.github.io/assets/img/ozkancelik.png"
+                                    style="width:120px; height:120px;" alt="Avatar">
+                            </a>
+                        </p>
+
+                        <div class="bar-container">
+                            <div class="bar"></div>
+                        </div>
+                        <br>
+                 
+
+
+
+                        <button onclick="myFunction('profile_menu')"
+                            class="w3-button w3-block w3-theme-l1 w3-left-align  w3-round-xxlarge w3-hover-theme"><i
+                                class="fa fa-caret-down fa-fw w3-margin-right"></i> {{ current_user.name }} </button>
+                        <div id="profile_menu" class="w3-hide w3-container">
+
+                            </p><a href="#"
+                                class="w3-button w3-block   w3-text-theme w3-left-align w3-border-top w3-hover-theme "><i
+                                    class="fa fa-user fa-fw w3-margin-right"></i>
+                                Profil</a>
+                            <a href="#"
+                                class="w3-button w3-block  w3-text-theme w3-left-align w3-border-top w3-hover-theme"><i
+                                    class="fa fa-cog fa-fw w3-margin-right"></i>
+                                Ayarlar</a>
+                            <a href="#"
+                                class="w3-button w3-block  w3-text-theme w3-left-align w3-border-top w3-hover-theme"><i
+                                    class="fa fa-envelope fa-fw w3-margin-right"></i>
+                                Mesaj Gönder</a>
+
+                            <a href="{{ url_for('logout') }}"
+                                class="w3-button w3-block  w3-text-theme w3-left-align w3-border-top w3-border-bottom w3-hover-red"><i
+                                    class="fa fa-sign-out fa-fw w3-margin-right"></i>
+                                Çıkış Yap</a>
+
+                        </div><br>
+
+
+
+                    </div>
+                </div>
+                <br>
+
+                <!-- Accordion -->
+                <div class="w3-card w3-round w3-white">
+                    <h5 class="w3-padding "> <i class="fa fa-file-text w3-margin-right "></i>
+                        Dersler</h5>
+                    <div class="w3-white">
+                        <button onclick="myFunction('Demo1')"
+                            class="w3-button w3-block w3-theme-l1 w3-left-align w3-hover-theme"><i
+                                class="fa fa-star-o fa-fw w3-margin-right"></i> Giriş Seviyesi</button>
+                        <div id="Demo1" class="w3-hide w3-container">
+                            <p>Algoritma Nedir?</p>
+                            <p>Programlama Dilleri</p>
+                            <p>Programlamaya Giriş</p>
+                            <p>Kurulum ve Çalıtırma</p>
+                            <p>Veri Tipleri</p>
+                        </div>
+                        <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i
+                                class="fa fa-star-half-o fa-fw w3-margin-right"></i> Orta Seviye</button>
+                        <div id="Demo2" class="w3-hide w3-container">
+                            <p>Some other text..</p>
+                        </div>
+                        <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i
+                                class="fa fa-star checked fa-fw w3-margin-right"></i> İleri Seviye</button>
+                        <div id="Demo3" class="w3-hide w3-container">
+                            <div class="w3-row-padding">
+                                <br>
+                                <div class="w3-half">
+                                    <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                                <div class="w3-half">
+                                    <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                                <div class="w3-half">
+                                    <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                                <div class="w3-half">
+                                    <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                                <div class="w3-half">
+                                    <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                                <div class="w3-half">
+                                    <img src="/w3images/snow.jpg" style="width:100%" class="w3-margin-bottom">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+
+                <!-- Alert Box -->
+                <div
+                    class="w3-container w3-display-container w3-round w3-theme-l2 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
+                    <span onclick="this.parentElement.style.display='none'"
+                        class="w3-button w3-theme-l2 w3-display-topright">
+                        <i class="fa fa-remove"></i>
+                    </span>
+                    <p><strong>Hey!</strong></p>
+                    <p>People are looking at your profile. Find out who.</p>
+                </div>
+
+                <!-- End Left Column -->
+            </div>
+
+            <!-- Middle Column -->
+            <section class="w3-col m9  ">
+
+                {% block content %}
+                {% endblock %}
+
+            </section>
+            <!-- End Middle Column -->
+        </div>
+        <!-- End Page Container -->
+    </div>
+    <br>
+
+    <!-- Footer -->
+    <footer class="w3-container w3-theme-d3 w3-padding-16">
+        <h5>Footer</h5>
+    </footer>
+
+    <footer class="w3-container w3-theme-d5">
+        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </footer>
+
+    <script>
+        // Accordion
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+                x.previousElementSibling.className += " w3-theme-d1";
+            } else {
+                x.className = x.className.replace("w3-show", "");
+                x.previousElementSibling.className =
+                    x.previousElementSibling.className.replace(" w3-theme-d1", "");
+            }
+        }
+
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+
+        function dropdwn() {
+            var x = document.getElementById("Demo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

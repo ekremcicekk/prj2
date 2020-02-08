@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Kayıt Sayfası</h2>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% endwith %}
+
+<form class="px-4 py-3" method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        <label for="exampleDropdownFormEmail1">Kullanıcı adı</label>
+        
+        {{ form.name(placeholder="Kullanıcı Adı", class="form-control" )}}
+        {% if form.name.errors %}
+            {{ "\n".join(form.name.errors) }}
+        {% endif %}
+        <!-- <input type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="Kullanıcı Adı"> -->
+    </div>
+    <div class="form-group">
+        <label for="exampleDropdownFormEmail1">E-posta adresi</label>
+        {{ form.email(placeholder="email@example.com", class="form-control" )}}
+        {% if form.email.errors %}
+            {{ "\n".join(form.email.errors) }}
+        {% endif %}
+        <!-- <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="e-posta@example.com"> -->
+    </div>
+    <div class="form-group">
+        <label for="exampleDropdownFormPassword1">Şifre</label>
+        <!-- <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Şİfre"> -->
+        {{ form.password(placeholder="******", class="form-control" )}}
+        {% if form.password.errors %}
+            {{ "\n".join(form.password.errors) }}
+        {% endif %}
+
+    </div>
+    {{ form.confirm_password(placeholder="******", class="form-control" )}}
+    <br>
+    {% if form.confirm_password.errors %}
+        {{ "\n".join(form.confirm_password.errors) }}
+    {% endif %}
+    <br>
+    <!-- <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="dropdownCheck">
+        <label class="form-check-label" for="dropdownCheck">
+            Kullanım Koşullarını okudum, kabul ediyorum
+        </label>
+    </div> -->
+    <!-- <button type="submit" class="btn btn-primary">Kaydol</button> -->
+    {{ form.checked}}
+
+    
+    {{ form.submit(class="btn btn-primary")}}
+
+</form>
+
+
+{% endblock %}

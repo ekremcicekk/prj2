@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }} alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+{% endwith %}
+
+
+
+    <section class="w3-row-padding w3-margin-bottom">
+        <div class="w3-container"><br>
+            <div class=" w3-bar w3-light-grey " style="width:100%">
+                <button class="w3-bar-item w3-button tablink w3-red" style="width: 50%"
+                    onclick="openCity(event,'login')">Giriş Yap</button>
+                <button class="w3-bar-item w3-button tablink" style="width:50%"
+                    onclick="openCity(event,'register')">Kaydol</button>
+
+            </div>
+
+            <div id="login" class="w3-container city">
+                <hr>
+
+                <form id="form"   class="w3-container form" method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="w3-section">
+                        <div class="form-control ">
+                            <label for="email"><b>E-posta</b></label>
+                            {{ form.email(placeholder="E-posta adresinizi girin", id="email", class="w3-input w3-border w3-margin-bottom" )}}
+                         
+                        </div>
+                        <div class="form-control">
+                            <label><b>Şifre</b></label>
+                            {{ form.password(placeholder="Şifrenizi girin", id="password", class="w3-input w3-border" )}}
+                            
+                        </div>
+
+                        {{ form.submit(class="w3-button w3-block w3-green w3-section w3-padding", type="submit")}}
+                    </div>
+                </form>
+
+
+            </div>
+
+            <div id="register" class="w3-container  city" style="display:none">
+                <hr>
+
+                <form id="form" class="w3-container" method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="w3-section">
+                        <label><b>Kullanıcı Adı</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="kullanıcı adı girin"
+                            name="usrname" required>
+                        <label><b>E-posta</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom" type="mail"
+                            placeholder="e-posta adresi girin" name="usrname" required>
+                        <label><b>Şifre</b></label>
+                        <input class="w3-input w3-border" type="password" placeholder="şifre girin" name="psw" required>
+                        <input class="w3-check w3-margin-top" type="checkbox" checked="checked"> <a href="#">Kullanım
+                            koşullarını</a> okudum, kabul ediyorum
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Kaydol</button>
+                        <br>
+
+                    </div>
+                </form>
+
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+<script>
+    function openCity(evt, cityName) {
+        var i, x, tablinks;
+        x = document.getElementsByClassName("city");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " w3-red";
+    }
+</script>
+
+
+
+{% endblock %}
