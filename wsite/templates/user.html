@@ -2,6 +2,12 @@
 {% block content %}
 
 <h2>Kullanıcı Sayfası</h2>
+<p>tarih</p>
+
+<p>
+
+    {{ current_user.register_date.strftime('%d.%m.%Y') }}
+</p>
 
 {% endblock %}
 

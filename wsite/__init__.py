@@ -5,11 +5,10 @@ from flask_mail import Mail, Message
 from flask_bcrypt import Bcrypt
 import os
 
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'b89ee54abbd28728736db3a53207d6d6'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///wdatabase.db'
-
-
 
 
 # app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
@@ -27,16 +26,9 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 
-
-
-
-
 db = SQLAlchemy(app)
 # db = SQLAlchemy()
 # db.init_app(app)
-
-
-
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -44,8 +36,8 @@ login_manager.login_message = "Bu sayfaya erişmek için lütfen giriş yapın."
 login_manager.login_message_category = 'info'
 
 mail=Mail(app)
-
 bcrypt = Bcrypt(app)
+
 
 from wsite import routes
 

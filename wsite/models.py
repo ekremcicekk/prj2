@@ -1,7 +1,7 @@
 from wsite import db, login_manager, app
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-
+from datetime import datetime
 
 
 @login_manager.user_loader
@@ -16,10 +16,11 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(60), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
+    register_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     #posts = db.relationship('Post', backref='user', lazy=True)
 
     #email reset
-    def get_reset_token(self, expires_sec=1800):
+    def get_reset_token(self, expires_sec=900):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
 

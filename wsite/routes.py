@@ -7,9 +7,21 @@ from PIL import Image
 import os
 import secrets
 
+
+
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    erorr_404 = "404 Bulunamadı: İstenen URL sunucuda bulunamadı. URL'yi manuel olarak girdiyseniz, lütfen yazımınızı kontrol edin ve tekrar deneyin."
+    return render_template('404.html', error_=erorr_404), 404
+
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 
 @app.route('/user')
@@ -17,9 +29,13 @@ def index():
 def user():
     return render_template('user.html')
 
+
+
 @app.route('/user_settings')
 def user_settings():
     return render_template('user_settings.html')
+
+
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -34,6 +50,7 @@ def register():
         flash(f"{form.name.data} hesap olusturuldu", 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
 
 
 @app.route('/login', methods = ['GET','POST'])
@@ -59,6 +76,8 @@ def logout():
     logout_user()# cikis yap.
     return redirect(url_for('index'))
 
+
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
@@ -73,6 +92,7 @@ def contact():
             flash(f'OPS, bir problem oldu.', 'danger')
     elif request.method == 'GET':
         return render_template('contact.html', title= 'Contact', form = form)
+
 
 
 @app.route('/addRegion', methods=['POST'])
@@ -97,11 +117,7 @@ def save_picture(form_picture):
     if not current_user.image_file == "default.png":
         old_picture_path = os.path.join(app.root_path, 'static','profile_pics', current_user.image_file)
         os.remove(old_picture_path)
-
-
     return picture_fn
-
-    
 
 
 
@@ -127,18 +143,23 @@ def account():
 
 
 
-
-
 def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message('Şifre Yenileme',
                   sender='proje Sitesi mesaji',
                   recipients=[user.email])
-    msg.body = f'''Şifrenizi sıfırlamak için aşağıdaki bağlantıyı ziyaret edin:
-{url_for('reset_token', token=token, _external=True)}
-Bu isteği siz yapmadıysanız, bu e-postayı dikkate almayın.
-'''
+    msg.html = f'''<div style='margin-bottom: 15px;padding: 15px 25px;border: 5px solid #f1f1f1;border-radius: 25px; color:#fff;background-color:#2791b7;'>
+  <img src="https://raw.githubusercontent.com/celikozkan/prj2/master/wsite/static/img/logo.png" alt=' '  height='50'>
+  <p><strong></strong>Merhaba {user.name},<br>
+Birisi kısa süre önce hesabınız için şifre değişikliği istedi. Bu sizseniz, aşağıdaki bağlantıyı tıklayarak yeni bir şifre oluşturabilirsiniz.</p>
+  <p style='margin-bottom: 15px;padding: 15px 25px;border: 2px solid #f1f1f1;border-radius: 5px; color:#000; background-color:#fff;'> <strong>Bağlantı: </strong>{url_for('reset_token', token=token, _external=True)}</p>
+  <hr style='color:#fff;'>
+  <small>Bağlantının geçerlilik süresi: 15 dakika</small><br>
+  <small>Şifrenizi değiştirmek istemiyorsanız veya bunu istemediyseniz, bu mesajı yok sayın ve silin..</small>
+</div>'''
+
     mail.send(msg)
+
 
 
 @app.route("/reset_password", methods=['GET', 'POST'])
@@ -149,9 +170,11 @@ def reset_request():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
-        flash('E-posta adresinizi kontrol edin. Şifrenizi sıfırlama talimatlarını içeren bir e-posta gönderildi', 'info')
+        flash('E-posta adresinizi kontrol edin. Şifrenizi sıfırlama talimatlarını içeren bir e-posta gönderildi (15dk geçerlidir)', 'info')
         return redirect(url_for('login'))
     return render_template('reset_request.html', title='Şifre Yenileme', form=form)
+
+
 
 
 @app.route("/reset_password/<token>", methods=['GET', 'POST'])
