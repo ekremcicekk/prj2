@@ -1,13 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Kullanıcı Sayfası</h2>
-<p>tarih</p>
 
-<p>
 
-    {{ current_user.register_date.strftime('%d.%m.%Y') }}
-</p>
+<section class="w3-row-padding w3-margin-bottom">
+    <div class="w3-col m12">
+        <div class="w3-card w3-round w3-white">
+            <h4 class="w3-margin">Profilim</h4>
+            <hr class="w3-clear">
+            <div class="w3-container">
+                {{ current_user.name }}
+
+            <p>
+                Kayıt Tarihi: {{ current_user.register_date.strftime('%d.%m.%Y') }}
+            </p>
+
+            <p>
+                Saviye: 1
+            </p>
+        </div>
+        </div>
+    </div>
+</section>
+
+
+
 
 {% endblock %}
-

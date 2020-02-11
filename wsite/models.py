@@ -1,7 +1,14 @@
 from wsite import db, login_manager, app
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from datetime import datetime
+from datetime import datetime, timedelta
+
+
+
+def turkis_date():
+    now = datetime.utcnow()
+    next_date = timedelta(hours=3)
+    return (now + next_date)
 
 
 @login_manager.user_loader
@@ -11,12 +18,13 @@ def load_user(user_id):
 
 
 class User(db.Model, UserMixin):
+    now = turkis_date()
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(60), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
-    register_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    register_date = db.Column(db.DateTime, nullable=False, default=now)
     #posts = db.relationship('Post', backref='user', lazy=True)
 
     #email reset

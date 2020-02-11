@@ -1,12 +1,12 @@
 from flask import render_template, request, flash, redirect, url_for
 from wsite import db, app, mail, Message, bcrypt
 from wsite.forms import RegisterForm, LoginForm, ContactForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm
-from wsite.models import User
+from wsite.models import User, turkis_date
 from flask_login import login_user, current_user, logout_user, login_required
 from PIL import Image
 import os
 import secrets
-
+from datetime import datetime, timedelta
 
 
 
@@ -95,11 +95,6 @@ def contact():
 
 
 
-@app.route('/addRegion', methods=['POST'])
-def addRegion():
-    aa = request.form['cevap']
-    return render_template('index.html', aa = aa)
-
 
 
 def save_picture(form_picture):
@@ -143,19 +138,27 @@ def account():
 
 
 
+
+
 def send_reset_email(user):
+    now = turkis_date()
+    expires_time = now + timedelta(seconds=900)
+    expires_time = expires_time.strftime("%d.%m.%Y  %X")
+    now = now.strftime("%d.%m.%Y  %X")
+
     token = user.get_reset_token()
     msg = Message('Şifre Yenileme',
                   sender='proje Sitesi mesaji',
                   recipients=[user.email])
-    msg.html = f'''<div style='margin-bottom: 15px;padding: 15px 25px;border: 5px solid #f1f1f1;border-radius: 25px; color:#fff;background-color:#2791b7;'>
-  <img src="https://raw.githubusercontent.com/celikozkan/prj2/master/wsite/static/img/logo.png" alt=' '  height='50'>
-  <p><strong></strong>Merhaba {user.name},<br>
-Birisi kısa süre önce hesabınız için şifre değişikliği istedi. Bu sizseniz, aşağıdaki bağlantıyı tıklayarak yeni bir şifre oluşturabilirsiniz.</p>
+    msg.html = f'''<div style='margin: 10px;padding: 15px 25px;border: 5px solid #f1f1f1;border-radius: 25px; color:#fff;background-color:#2791b7;'>
+  <img src="{ url_for('static', filename='img/logo.png', _external=True) }/" alt=' '  height='50'>
+  <p><strong>Merhaba {user.name},</strong><br>
+Birisi <abbr title='{now}'>kısa süre önce</abbr> hesabınız için şifre değişikliği istedi. Bu sizseniz aşağıdaki bağlantıyı tıklayarak yeni bir şifre oluşturabilirsiniz.</p>
   <p style='margin-bottom: 15px;padding: 15px 25px;border: 2px solid #f1f1f1;border-radius: 5px; color:#000; background-color:#fff;'> <strong>Bağlantı: </strong>{url_for('reset_token', token=token, _external=True)}</p>
-  <hr style='color:#fff;'>
-  <small>Bağlantının geçerlilik süresi: 15 dakika</small><br>
-  <small>Şifrenizi değiştirmek istemiyorsanız veya bunu istemediyseniz, bu mesajı yok sayın ve silin..</small>
+  <hr style='border: 1px solid #fff;'>
+  <li><small>Bağlantının son geçerlilik süresi: {expires_time}</small></li>
+  <li><small>Şifrenizi değiştirmek istemiyorsanız veya bunu istemediyseniz, bu mesajı yok sayın ve silin.</small></li>
+  <ul>
 </div>'''
 
     mail.send(msg)
@@ -193,3 +196,7 @@ def reset_token(token):
         flash('Şifreniz güncellendi! Artık giriş yapabilirsiniz', 'success')
         return redirect(url_for('login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
+
+
+

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>KODLA</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -66,23 +66,24 @@
             <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"
                 href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
 
-            <a href="#">
+            <a href="{{ url_for('index') }}">
                 <img src="../static/img/logo.png" class="w3-bar-item w3-button w3-padding-large w3-hover-theme"
                     height="51px"></img>
             </a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News"><i
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Ana Sayfa"><i
                     class="fa fa-globe"></i></a>
             <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
-                title="Account Settings"><i class="fa fa-user"></i></a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Messages"><i
+                title="Profil"><i class="fa fa-user"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Mesajlar"><i
                     class="fa fa-envelope"></i></a>
             <div class="w3-dropdown-hover w3-hide-small ">
-                <button class="w3-button w3-padding-large w3-hover-white" title="Notifications"><i
-                        class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">7</span></button>
+                <button class="w3-button w3-padding-large w3-hover-white" title="Bildirimler"><i
+                        class="fa fa-bell"></i><span class="w3-badge w3-right w3-small w3-green">4</span></button>
                 <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
-                    <a href="#" class="w3-bar-item w3-button w3-hover-theme">One new friend request</a>
-                    <a href="#" class="w3-bar-item w3-button w3-hover-theme">John Doe posted on your wall</a>
-                    <a href="#" class="w3-bar-item w3-button w3-hover-theme">Jane likes your post</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hover-theme">Bildirim 1</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hover-theme">Bildirim 2</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hover-theme">Bildirim 3</a>
+                    <a href="#" class="w3-bar-item w3-button w3-hover-theme">Bildirim 4</a>
                 </div>
             </div>
             <!-- icon -->
@@ -103,7 +104,7 @@
         <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
         <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
         <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding-large">My Profile</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large">Profilim</a>
     </div>
 
     <!-- Page Container -->
@@ -116,7 +117,7 @@
                 <div class="w3-card w3-round w3-white">
                     <div class="w3-container">
                         <p class="w3-center ">
-                            <a href="#">
+                            <a href="{{ url_for('user') }}">
                                 <img class="w3-circle" src="{{ url_for('static', filename='profile_pics/') }}{{ current_user.image_file }}"
                                     style="width:110px; height:110px; border: 1px solid #eeeeee;" alt="{{ current_user.name }}">
                             </a>
@@ -135,14 +136,14 @@
                                 class="fa fa-caret-down fa-fw w3-margin-right"></i> {{ current_user.name }} </button>
                         <div id="profile_menu" class="w3-hide w3-container">
 
-                            </p><a href="#"
+                            </p><a href="{{ url_for('user') }}"
                                 class="w3-button w3-block   w3-text-theme w3-left-align w3-border-top w3-hover-theme "><i
                                     class="fa fa-user fa-fw w3-margin-right"></i>
-                                Profil</a>
-                            <a href="#"
+                                Profilim</a>
+                            <a href="{{ url_for('account') }}"
                                 class="w3-button w3-block  w3-text-theme w3-left-align w3-border-top w3-hover-theme"><i
                                     class="fa fa-cog fa-fw w3-margin-right"></i>
-                                Ayarlar</a>
+                                Hesap Ayarları</a>
                             <a href="#"
                                 class="w3-button w3-block  w3-text-theme w3-left-align w3-border-top w3-hover-theme"><i
                                     class="fa fa-envelope fa-fw w3-margin-right"></i>
@@ -179,31 +180,14 @@
                         <button onclick="myFunction('Demo2')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i
                                 class="fa fa-star-half-o fa-fw w3-margin-right"></i> Orta Seviye</button>
                         <div id="Demo2" class="w3-hide w3-container">
-                            <p>Some other text..</p>
+                            <p>Konu Başlıkları</p>
                         </div>
                         <button onclick="myFunction('Demo3')" class="w3-button w3-block w3-theme-l1 w3-left-align"><i
                                 class="fa fa-star checked fa-fw w3-margin-right"></i> İleri Seviye</button>
                         <div id="Demo3" class="w3-hide w3-container">
                             <div class="w3-row-padding">
                                 <br>
-                                <div class="w3-half">
-                                    <img src="/w3images/lights.jpg" style="width:100%" class="w3-margin-bottom">
-                                </div>
-                                <div class="w3-half">
-                                    <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-                                </div>
-                                <div class="w3-half">
-                                    <img src="/w3images/mountains.jpg" style="width:100%" class="w3-margin-bottom">
-                                </div>
-                                <div class="w3-half">
-                                    <img src="/w3images/forest.jpg" style="width:100%" class="w3-margin-bottom">
-                                </div>
-                                <div class="w3-half">
-                                    <img src="/w3images/nature.jpg" style="width:100%" class="w3-margin-bottom">
-                                </div>
-                                <div class="w3-half">
-                                    <img src="/w3images/snow.jpg" style="width:100%" class="w3-margin-bottom">
-                                </div>
+                                <p>Konu Başlıkları</p>
                             </div>
                         </div>
                     </div>
@@ -218,8 +202,8 @@
                         class="w3-button w3-theme-l2 w3-display-topright">
                         <i class="fa fa-remove"></i>
                     </span>
-                    <p><strong>Hey!</strong></p>
-                    <p>People are looking at your profile. Find out who.</p>
+                    <p><strong>Bildirim Başlığı</strong></p>
+                    <p>Buraya bildirim mesajı gelecek</p>
                 </div>
 
                 <!-- End Left Column -->
@@ -244,7 +228,7 @@
     </footer>
 
     <footer class="w3-container w3-theme-d5">
-        <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+        <p>footer içeriği... <a href="#" target="_blank">linkler</a></p>
     </footer>
 
     <script>
