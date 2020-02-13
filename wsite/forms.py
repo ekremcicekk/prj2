@@ -39,7 +39,7 @@ class UpdateAccountForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[DataRequired(), Email(message="Geçerli bir e-posta adresi girilmedi.")])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField("Remember")
     submit = SubmitField('Giriş')

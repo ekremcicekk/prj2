@@ -31,13 +31,13 @@ db = SQLAlchemy(app)
 # db.init_app(app)
 
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'login' #login değilse yönlendirilecek sayfa tepml.
 login_manager.login_message = "Bu sayfaya erişmek için lütfen giriş yapın."
 login_manager.login_message_category = 'info'
 
+
 mail=Mail(app)
 bcrypt = Bcrypt(app)
-
 
 from wsite import routes
 
