@@ -25,6 +25,9 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(120), nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
     register_date = db.Column(db.DateTime, nullable=False, default=now)
+    level = db.Column(db.Integer, nullable=False, default=1)
+    score = db.Column(db.Integer, nullable=False, default=0)
+    admin = db.Column(db.Boolean, default=False)
     #posts = db.relationship('Post', backref='user', lazy=True)
 
     #email reset
@@ -43,3 +46,5 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f"User: {self.name}, {self.email}"
+
+

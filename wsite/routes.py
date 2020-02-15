@@ -7,7 +7,8 @@ from PIL import Image
 import os
 import secrets
 from datetime import datetime, timedelta
-
+from flask_admin.contrib import sqla
+from flask_admin import AdminIndexView, helpers, Admin, expose
 
 
 
@@ -198,5 +199,39 @@ def reset_token(token):
     return render_template('reset_token.html', title='Reset Password', form=form)
 
 
+# yönetici paneli ---
+class MyModelView(sqla.ModelView):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.admin
 
 
+class MyIndexView(AdminIndexView):
+    @expose('/')
+    def index(self):
+        if not current_user.is_authenticated:
+            return redirect(url_for('.login_view'))
+        return super(MyIndexView, self).index()
+    @expose('/login/', methods=('GET', 'POST'))
+    def login_view(self):
+        form = LoginForm()
+        if form.validate_on_submit():
+            user = User.query.filter_by(email=form.email.data).first()
+            if user and bcrypt.check_password_hash(user.password, form.password.data):
+                login_user(user, remember=form.remember.data)
+            else:
+                flash('Giriş başarısız. Lütfen e-postayı ve şifreyi kontrol edin', 'danger')
+
+        if current_user.is_authenticated :
+            return redirect(url_for('.index'))
+        self._template_args['form'] = form
+        return super(MyIndexView, self).index()
+
+
+app.config['FLASK_ADMIN_SWATCH'] = 'Slate' #'Flatly'#'Superhero'
+admin = Admin(app, name='KODLA', template_mode='bootstrap3',
+                  index_view=MyIndexView())
+
+
+admin.add_view(MyModelView(User, db.session, name='Users'))
+
+#yönetici paneli --

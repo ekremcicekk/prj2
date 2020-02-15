@@ -39,5 +39,5 @@ login_manager.login_message_category = 'info'
 mail=Mail(app)
 bcrypt = Bcrypt(app)
 
-from wsite import routes
 
+from wsite import routes
