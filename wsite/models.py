@@ -28,7 +28,7 @@ class User(db.Model, UserMixin):
     level = db.Column(db.Integer, nullable=False, default=1)
     score = db.Column(db.Integer, nullable=False, default=0)
     admin = db.Column(db.Boolean, default=False)
-    #posts = db.relationship('Post', backref='user', lazy=True)
+
 
     #email reset
     def get_reset_token(self, expires_sec=900):

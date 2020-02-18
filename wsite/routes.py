@@ -203,6 +203,9 @@ def reset_token(token):
 class MyModelView(sqla.ModelView):
     def is_accessible(self):
         return current_user.is_authenticated and current_user.admin
+    def on_model_change(self, form, User, is_created=False):
+        User.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+    
 
 
 class MyIndexView(AdminIndexView):

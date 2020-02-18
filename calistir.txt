@@ -15,3 +15,6 @@ db.create_all()
 
 from wsite.models import User
 print(User.query.first())
+
+
+pip freeze > requirements
