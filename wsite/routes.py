@@ -9,6 +9,7 @@ import secrets
 from datetime import datetime, timedelta
 from flask_admin.contrib import sqla
 from flask_admin import AdminIndexView, helpers, Admin, expose
+from flask_admin.contrib.fileadmin import FileAdmin
 
 
 
@@ -204,7 +205,12 @@ class MyModelView(sqla.ModelView):
         return current_user.is_authenticated and current_user.admin
     def on_model_change(self, form, User, is_created=False):
         User.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-    
+
+ #profil resmi   
+class FileView(FileAdmin):
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.admin
+
 
 
 class MyIndexView(AdminIndexView):
@@ -236,4 +242,17 @@ admin = Admin(app, name='KODLA', template_mode='bootstrap3',
 
 admin.add_view(MyModelView(User, db.session, name='Users'))
 
+
+#profil resimleri
+profile_pics_path = os.path.join(app.root_path, 'static/profile_pics/')
+img_path = os.path.join(app.root_path, 'static/img/')
+admin.add_view(FileView(profile_pics_path, '/static/profile_pics/', name='Profile Pics', endpoint='profile_pics', category="Files"))
+admin.add_view(FileView(img_path, '/static/img/', name='İmages', endpoint='img', category="Files"))
+
+
+
+
+
 #yönetici paneli --
+
+#{{ url_for('static', filename='css/styles.css') }}
