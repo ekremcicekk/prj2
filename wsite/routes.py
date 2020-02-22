@@ -249,10 +249,6 @@ img_path = os.path.join(app.root_path, 'static/img/')
 admin.add_view(FileView(profile_pics_path, '/static/profile_pics/', name='Profile Pics', endpoint='profile_pics', category="Files"))
 admin.add_view(FileView(img_path, '/static/img/', name='İmages', endpoint='img', category="Files"))
 
-
-
-
-
 #yönetici paneli --
 
 #{{ url_for('static', filename='css/styles.css') }}
