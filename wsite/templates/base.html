@@ -3,60 +3,23 @@
 <title>KODLA</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/w3.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-color.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}"> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/logo.ico') }}" />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/magic.css') }}">
 
-<!-- renkli kutu -->
+<!-- kod kutusu -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/prism.css') }}" />
 <script defer type="text/javascript" src="{{ url_for('static', filename='js/prism.js') }}"></script>
-<!-- renkli kutu son -->
-<style>
-    html,
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        font-family: "Open Sans", sans-serif;
-        color: #195b73;
-    }
+<!-- kod kutusu son -->
 
-    .w3-card,
-    .w3-card-2,
-    .w3-card-4 {
-        box-shadow: none;
-        border: 1px solid #eeeeee;
-    }
-
-
-
-
-    .checked {
-        color: orange;
-
-    }
-
-
-    .bar-container {
-        width: 100%;
-        background-color: #f1f1f1;
-        text-align: center;
-        color: white;
-    }
-
-    .bar {
-        width: 10%;
-        height: 4px;
-        background-color: #ff9800;
-    }
-</style>
-
+<script defer type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 <body class="w3-theme-l5">
 
@@ -67,7 +30,7 @@
                 href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
 
             <a href="{{ url_for('index') }}">
-                <img src="../static/img/logo.png" class="w3-bar-item w3-button w3-padding-large w3-hover-theme"
+                <img src="{{ url_for('static', filename='img/logo.png') }}" class="w3-bar-item w3-button w3-padding-large w3-hover-theme"
                     height="51px"></img>
             </a>
             <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="Ana Sayfa"><i
@@ -212,7 +175,7 @@
             </div>
 
             <!-- Middle Column -->
-            <section class="w3-col m9 animasyon ">
+            <section class="w3-col m9">
 
                 {% block content %}
                 {% endblock %}
@@ -232,46 +195,6 @@
     <footer class="w3-container w3-theme-d5">
         <p>footer içeriği... <a href="#" target="_blank">linkler</a></p>
     </footer>
-
-    <script>
-        // Accordion
-        function myFunction(id) {
-            var x = document.getElementById(id);
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-                x.previousElementSibling.className += " w3-theme-d1";
-            } else {
-                x.className = x.className.replace("w3-show", "");
-                x.previousElementSibling.className =
-                    x.previousElementSibling.className.replace(" w3-theme-d1", "");
-            }
-        }
-
-        // Used to toggle the menu on smaller screens when clicking on the menu button
-        function openNav() {
-            var x = document.getElementById("navDemo");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-
-
-        function dropdwn() {
-            var x = document.getElementById("Demo");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-
-
-        const selector = document.querySelector('.animasyon')
-        selector.classList.add('magictime', 'tinDownIn')
-
-    </script>
 
 </body>
 

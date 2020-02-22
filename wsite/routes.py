@@ -46,8 +46,7 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(name=form.name.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
+        user.save_to_db()
         flash(f"{form.name.data} hesap olusturuldu", 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)

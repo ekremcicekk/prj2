@@ -1,0 +1,36 @@
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: "Open Sans", sans-serif;
+    color: #195b73;
+}
+
+.w3-card,
+.w3-card-2,
+.w3-card-4 {
+    box-shadow: none;
+    border: 1px solid #eeeeee;
+}
+
+.checked {
+    color: orange;
+
+}
+
+
+.bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: white;
+}
+
+.bar {
+    width: 10%;
+    height: 4px;
+    background-color: #ff9800;
+}
